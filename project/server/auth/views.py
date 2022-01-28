@@ -12,6 +12,7 @@ class RegisterAPI(MethodView):
     """
 
     def get(self):
+        
         responseObject = {
             'status': 'success',
             'message': 'Request successful but please send an HTTP POST request to register the user.'
@@ -31,14 +32,18 @@ class RegisterAPI(MethodView):
                 )
 
                 # insert the user
+                
                 db.session.add(user)
+                
                 db.session.commit()
+                
                 # generate the auth token
                 auth_token = user.encode_auth_token(user.id)
+                # print(auth_token)
                 responseObject = {
                     'status': 'success',
                     'message': 'Successfully registered.',
-                    'auth_token': auth_token.decode()
+                    'auth_token': auth_token
                 }
                 return make_response(jsonify(responseObject)), 201
             except Exception as e:
