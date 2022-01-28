@@ -1,4 +1,4 @@
-release: bash launch.sh
+web: sh ./launch.sh
 heroku ps:scale web=1
 
 
